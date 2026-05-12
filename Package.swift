@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.4
 
 import PackageDescription
 
@@ -25,6 +25,7 @@ let package = Package(
             ]),
         .target(
             name: "copencc",
+            dependencies: ["cmarisa"],
             exclude: [
                 "src/benchmark",
                 "src/tools",
@@ -78,7 +79,6 @@ let package = Package(
             sources: [
                 "source.cpp",
                 "src",
-                "deps/marisa-0.3.1/lib",
             ],
             cxxSettings: [
                 .headerSearchPath("src"),
@@ -86,8 +86,17 @@ let package = Package(
                 .headerSearchPath("deps/darts-clone-0.32"),
                 .headerSearchPath("deps/marisa-0.3.1/include"),
                 .headerSearchPath("deps/marisa-0.3.1/lib"),
-                .define("OPENCC_ENABLE_DARTS"),
+            ]),
+        .target(
+            name: "cmarisa",
+            path: "OpenCC/deps/marisa-0.3.1/lib",
+            sources: [
+                "marisa",
+            ],
+            cxxSettings: [
+                .headerSearchPath("."),
+                .headerSearchPath("../include"),
             ]),
     ],
-    cxxLanguageStandard: .cxx14
+    cxxLanguageStandard: .cxx17
 )
