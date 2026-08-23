@@ -1,9 +1,5 @@
 # Swifty Open Chinese Convert
 
-[![GitHub CI Status](https://github.com/ddddxxx/SwiftyOpenCC/workflows/CI/badge.svg)](https://github.com/ddddxxx/SwiftyOpenCC/actions)
-![platforms](https://img.shields.io/badge/platforms-Linux%20%7C%20macOS%20%7C%20iOS%20%7C%20tvOS%20%7C%20watchOS-lightgrey.svg)
-[![codebeat badge](https://codebeat.co/badges/39f17620-4f1c-4a46-b3f9-8f5b248ac28f)](https://codebeat.co/projects/github-com-ddddxxx-swiftyopencc-master)
-
 Swift port of [Open Chinese Convert](https://github.com/BYVoid/OpenCC), currently vendoring OpenCC 1.4.2.
 
 ## Requirements
@@ -23,10 +19,6 @@ let converter = try! ChineseConverter(options: [.traditionalize, .twStandard, .t
 converter.convert(str)
 // 滑鼠裡面的矽二極體壞了，導致游標解析度降低。
 ```
-
-## Documentation
-
-[GitHub Pages](http://ddddxxx.github.io/SwiftyOpenCC) (100% Documented)
 
 ## Build Your Own
 
