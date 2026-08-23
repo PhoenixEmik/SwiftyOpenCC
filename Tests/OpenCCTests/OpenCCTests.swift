@@ -79,7 +79,11 @@ class OpenCCTests: XCTestCase {
         case "t2hk":
             return [.hkStandard]
         case "tw2t":
-            return [.traditionalize]
+            return [.twStandard, .reverseStandard]
+        case "t2tw":
+            return [.twStandard]
+        case "hk2t":
+            return [.hkStandard, .reverseStandard]
         default:
             return nil
         }

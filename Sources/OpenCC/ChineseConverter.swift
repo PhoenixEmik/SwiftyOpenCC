@@ -46,6 +46,9 @@ public class ChineseConverter {
         
         /// Taiwanese idiom conversion.
         public static let twIdiom = Options(rawValue: 1 << 10)
+
+        /// Convert from a regional standard back to OpenCC standard.
+        public static let reverseStandard = Options(rawValue: 1 << 11)
     }
     
     private let seg: ConversionDictionary

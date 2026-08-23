@@ -33,6 +33,8 @@ let package = Package(
                 "src/BinaryDictTest.cpp",
                 "src/Config.cpp",
                 "src/ConfigTest.cpp",
+                "src/ConversionAmbiguitiesTest.cpp",
+                "src/ConversionCandidatesTest.cpp",
                 "src/ConversionChainTest.cpp",
                 "src/ConversionTest.cpp",
                 "src/DartsDictTest.cpp",
@@ -40,6 +42,7 @@ let package = Package(
                 "src/MarisaDictTest.cpp",
                 "src/MaxMatchSegmentationTest.cpp",
                 "src/PhraseExtractTest.cpp",
+                "src/PrefixMatchTest.cpp",
                 "src/SerializedValuesTest.cpp",
                 "src/SimpleConverter.cpp",
                 "src/SimpleConverterTest.cpp",
@@ -63,8 +66,7 @@ let package = Package(
                 "src/TestUtilsUTF8.hpp",
                 "src/TextDictTestBase.hpp",
                 "src/py_opencc.cpp",
-                "src/opencc_config.h",
-                "src/opencc_config.h.in",
+                "src/opencc_config_schema.inc",
                 "src/version.rc.in",
 
                 // ???
@@ -82,8 +84,7 @@ let package = Package(
             ],
             cxxSettings: [
                 .headerSearchPath("src"),
-                .headerSearchPath("configure"),
-                .headerSearchPath("deps/darts-clone-0.32"),
+                .headerSearchPath("deps/darts-clone-0.32h/include"),
                 .headerSearchPath("deps/marisa-0.3.1/include"),
                 .headerSearchPath("deps/marisa-0.3.1/lib"),
             ]),

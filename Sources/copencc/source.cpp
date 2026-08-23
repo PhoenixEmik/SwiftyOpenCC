@@ -1,10 +1,11 @@
 #include "DartsDict.hpp"
 #include "DictGroup.hpp"
-#include "Converter.hpp"
 #include "MarisaDict.hpp"
 #include "MaxMatchSegmentation.hpp"
 #include "Conversion.hpp"
 #include "ConversionChain.hpp"
+#include "SerializableDict.hpp"
+#include "SingleStageConverter.hpp"
 
 #include "header.h"
 
@@ -16,11 +17,11 @@ void* catchOpenCCException(void* (^block)()) {
     } catch (opencc::FileNotFound& ex) {
         ccErrorno = CCErrorCodeFileNotFound;
         return NULL;
-    } catch (opencc::InvalidFormat& ex) {
-        ccErrorno = CCErrorCodeInvalidFormat;
-        return NULL;
     } catch (opencc::InvalidTextDictionary& ex) {
         ccErrorno = CCErrorCodeInvalidTextDictionary;
+        return NULL;
+    } catch (opencc::InvalidFormat& ex) {
+        ccErrorno = CCErrorCodeInvalidFormat;
         return NULL;
     } catch (opencc::InvalidUTF8& ex) {
         ccErrorno = CCErrorCodeInvalidUTF8;
@@ -55,7 +56,7 @@ CCDictRef _Nonnull CCDictCreateWithGroup(CCDictRef _Nonnull * const _Nonnull dic
         auto *dictPtr = static_cast<opencc::DictPtr*>(dictGroup[i]);
         list.push_back(*dictPtr);
     }
-    auto dict = new opencc::DictGroupPtr(new opencc::DictGroup(list));
+    auto dict = new opencc::DictGroupPtr(new opencc::UnionDictGroup(list));
     return static_cast<void*>(dict);
 }
 
@@ -74,10 +75,9 @@ CCConverterRef _Nonnull CCConverterCreate(const char * _Nonnull name, CCDictRef 
         auto conversion = opencc::ConversionPtr(new opencc::Conversion(*dictPtr));
         conversions.push_back(conversion);
     }
-    auto covName = std::string(name);
     auto covSeg = opencc::SegmentationPtr(new opencc::MaxMatchSegmentation(*segmentationPtr));
     auto covChain = opencc::ConversionChainPtr(new opencc::ConversionChain(conversions));
-    auto converter = new opencc::Converter(covName, covSeg, covChain);
+    auto converter = new opencc::SingleStageConverter(covSeg, covChain);
     return static_cast<void*>(converter);
 }
 

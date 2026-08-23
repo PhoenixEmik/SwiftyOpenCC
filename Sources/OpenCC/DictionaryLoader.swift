@@ -35,8 +35,14 @@ extension ChineseConverter {
 extension ChineseConverter.DictionaryLoader {
     
     func segmentation(options: ChineseConverter.Options) throws -> ConversionDictionary {
-        let dictName = options.segmentationDictName
-        return try dict(dictName)
+        let names = options.segmentationDictNames
+        switch names.count {
+        case 1:
+            return try dict(names.first!)
+        default:
+            let dicts = try names.map(dict)
+            return ConversionDictionary(group: dicts)
+        }
     }
     
     func conversionChain(options: ChineseConverter.Options) throws -> [ConversionDictionary] {
